@@ -4,7 +4,7 @@ import { asyncHandler } from "../middlewares/asyncHandler.middlerware";
 import { loginSchema, registerSchema } from "../validators/auth.validator";
 import { loginService, registerService } from "../services/auth.service";
 
-export const registerController = asyncHandler(
+export const registerController = 
   async (req: Request, res: Response) => {
     const body = registerSchema.parse(req.body);
 
@@ -15,7 +15,7 @@ export const registerController = asyncHandler(
       data: result,
     });
   }
-);
+
 
 export const loginController = asyncHandler(
   async (req: Request, res: Response) => {
