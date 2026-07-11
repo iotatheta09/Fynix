@@ -13,7 +13,7 @@ import authRoutes from "./routes/auth.route";
 import { passportAuthenticateJwt } from "./config/passport.config";
 import userRoutes from "./routes/user.route";
 import transactionRoutes from "./routes/transaction.route";
-import { initializeCrons } from "./cron";
+import { initializeCrons } from "./crons/index";
 import reportRoutes from "./routes/report.route";
 import { getDateRange } from "./utils/date";
 import analyticsRoutes from "./routes/analytics.route";

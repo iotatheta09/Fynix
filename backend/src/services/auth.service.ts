@@ -47,7 +47,8 @@ export const registerService = async (body: RegisterSchemaType) => {
 
 export const loginService = async (body: LoginSchemaType) => {
   const { email, password } = body;
-  const user = await UserModel.findOne({ email });
+  const user = await UserModel.findOne({ email }).select("+password");
+  //const user = await UserModel.findOne({ email });
   if (!user) throw new NotFoundException("Email/password not found");
 
   const isPasswordValid = await user.comparePassword(password);
