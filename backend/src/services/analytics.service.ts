@@ -5,7 +5,7 @@ import TransactionModel, {
 } from "../models/transaction.model";
 import { getDateRange } from "../utils/date";
 import { differenceInDays, subDays, subYears } from "date-fns";
-import { convertToDollarUnit } from "../utils/format-currency";
+import { convertToRupees} from "../utils/format-currency";
 
 export const summaryAnalyticsService = async (
   userId: string,
@@ -219,9 +219,9 @@ export const summaryAnalyticsService = async (
   }
 
   return {
-    availableBalance: convertToDollarUnit(availableBalance),
-    totalIncome: convertToDollarUnit(totalIncome),
-    totalExpenses: convertToDollarUnit(totalExpenses),
+    availableBalance: convertToRupees(availableBalance),
+    totalIncome: convertToRupees(totalIncome),
+    totalExpenses: convertToRupees(totalExpenses),
     savingRate: {
       percentage: parseFloat(savingData.savingsPercentage.toFixed(2)),
       expenseRatio: parseFloat(savingData.expenseRatio.toFixed(2)),
@@ -230,13 +230,13 @@ export const summaryAnalyticsService = async (
     percentageChange: {
       ...percentageChange,
       previousValues: {
-        incomeAmount: convertToDollarUnit(
+        incomeAmount: convertToRupees(
           percentageChange.previousValues.incomeAmount
         ),
-        expenseAmount: convertToDollarUnit(
+        expenseAmount: convertToRupees(
           percentageChange.previousValues.expenseAmount
         ),
-        balanceAmount: convertToDollarUnit(
+        balanceAmount: convertToRupees(
           percentageChange.previousValues.balanceAmount
         ),
       },
@@ -351,8 +351,8 @@ export const chartAnalyticsService = async (
 
   const transaformedData = (resultData?.chartData || []).map((item: any) => ({
     date: item.date,
-    income: convertToDollarUnit(item.income),
-    expenses: convertToDollarUnit(item.expenses),
+    income: convertToRupees(item.income),
+    expenses: convertToRupees(item.expenses),
   }));
 
   return {
@@ -476,10 +476,10 @@ export const expensePieChartBreakdownService = async (
     breakdown: [],
   };
   const transformedData = {
-    totalSpent: convertToDollarUnit(data.totalSpent),
+    totalSpent: convertToRupees(data.totalSpent),
     breakdown: data.breakdown.map((item: any) => ({
       ...item,
-      value: convertToDollarUnit(item.value),
+      value: convertToRupees(item.value),
     })),
   };
 
