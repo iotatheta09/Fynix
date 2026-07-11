@@ -33,15 +33,12 @@ app.use(
   })
 );
 
-app.get(
-  "/",
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    throw new BadRequestException("This is a test error");
-    res.status(HTTPSTATUS.OK).json({
-      message: "Hello Subcribe to the channel",
-    });
-  })
-);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Fynix Backend is running 🚀",
+  });
+});
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
 app.use(`${BASE_PATH}/user`, passportAuthenticateJwt, userRoutes);
@@ -54,9 +51,9 @@ app.use(errorHandler);
 app.listen(Env.PORT, async () => {
   await connctDatabase();
 
-  if (Env.NODE_ENV === "development") {
+ if (Env.ENABLE_CRONS === "true") {
     await initializeCrons();
-  }
+}
 
   console.log(`Server is running on port ${Env.PORT} in ${Env.NODE_ENV} mode`);
 });
